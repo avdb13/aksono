@@ -19,7 +19,7 @@ async fn main() -> ExitCode {
     }
 }
 
-async fn try_main() -> Result<(), error::Startup> {
+async fn try_main() -> Result<(), error::startup::Error> {
     tracing_subscriber::fmt()
         .event_format(tracing_subscriber::fmt::format().compact())
         .init();
@@ -32,9 +32,9 @@ async fn try_main() -> Result<(), error::Startup> {
             .unwrap_or_else(|| Path::new("./aksono.toml").to_owned());
 
         let file = std::fs::read_to_string(&path)
-            .map_err(|error| error::Config::Read(error, path.clone()))?;
+            .map_err(|error| error::startup::Config::Read(error, path.clone()))?;
 
-        toml::from_str(&file).map_err(|error| error::Config::Parse(error, path.clone()))?
+        toml::from_str(&file).map_err(|error| error::startup::Config::Parse(error, path.clone()))?
     };
 
     let app = app::App::new(config);
@@ -51,13 +51,13 @@ async fn try_main() -> Result<(), error::Startup> {
             Err(error) => {
                 let listener = app.config.listener.clone();
 
-                Err(error::Serve::Listener(error, listener).into())
+                Err(error::startup::Serve::Listener(error, listener).into())
             }
         },
         Err(error) => {
             let listener = app.config.listener.clone();
 
-            Err(error::Serve::Listener(error, listener).into())
+            Err(error::startup::Serve::Listener(error, listener).into())
         }
     }
 }
