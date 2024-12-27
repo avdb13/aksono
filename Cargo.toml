@@ -6,6 +6,9 @@ license = "Apache-2.0"
 keywords = ["matrix", "chat", "messaging", "federation", "social", "community"]
 
 [dependencies]
+# Tracing
+tracing = "0.1.41"
+tracing-subscriber = "0.3.19"
 
 [profile.dev]
 incremental = true
