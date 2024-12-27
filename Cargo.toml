@@ -22,6 +22,9 @@ tokio = { version = "1.42.0", features = ["full"] }
 # Router
 axum = { version = "0.7.9", features = ["tokio", "json", "http2"] }
 
+# Error deriving
+thiserror = { version = "2.0.9" }
+
 [profile.dev]
 incremental = true
 opt-level = 1
