@@ -48,13 +48,19 @@ async fn try_main() -> Result<(), error::Startup> {
         "serving application"
     );
 
-    let listener = TcpListener::bind(&*app.config.listener)
-        .await
-        .map_err(|error| error::Serve::Listener(error, app.config.listener.clone()))?;
+    match TcpListener::bind(&*app.config.listener).await {
+        Ok(listener) => match axum::serve(listener, Router::new()).await {
+            Ok(_) => Ok(()),
+            Err(error) => {
+                let listener = app.config.listener.clone();
 
-    axum::serve(listener, Router::new())
-        .await
-        .map_err(|error| error::Serve::Listener(error, app.config.listener.clone()))?;
+                Err(error::Serve::Listener(error, listener).into())
+            }
+        },
+        Err(error) => {
+            let listener = app.config.listener.clone();
 
-    Ok(())
+            Err(error::Serve::Listener(error, listener).into())
+        }
+    }
 }
