@@ -5,6 +5,7 @@ use tokio::net::TcpListener;
 
 use tracing::info;
 
+mod app;
 mod args;
 mod config;
 mod error;
@@ -39,19 +40,21 @@ async fn try_main() -> Result<(), error::Startup> {
         toml::from_str(&file).map_err(|error| error::Config::Parse(error, path.clone()))?
     };
 
+    let app = app::App::new(config);
+
     info!(
-        address = %config.listener.ip(),
-        port = %config.listener.port(),
+        address = %app.config.listener.ip(),
+        port = %app.config.listener.port(),
         "serving application"
     );
 
-    let listener = TcpListener::bind(&*config.listener)
+    let listener = TcpListener::bind(&*app.config.listener)
         .await
-        .map_err(|error| error::Serve::Listener(error, config.listener.clone()))?;
+        .map_err(|error| error::Serve::Listener(error, app.config.listener.clone()))?;
 
     axum::serve(listener, Router::new())
         .await
-        .map_err(|error| error::Serve::Listener(error, config.listener.clone()))?;
+        .map_err(|error| error::Serve::Listener(error, app.config.listener.clone()))?;
 
     Ok(())
 }
