@@ -26,8 +26,20 @@ axum = { workspace = true }
 # Error deriving
 thiserror = { workspace = true }
 
-# Argument parsing
-argh = { workspace = true }
+# Matrix types and traits
+ruma = { workspace = true }
+
+# Middleware utilities
+tower = { workspace = true }
+
+# Async abstractions
+futures = { workspace = true }
+
+# HTTP body utilities
+http-body-util = { workspace = true }
+
+# Byte abstractions
+bytes = { workspace = true }
 
 [lints]
 workspace = true

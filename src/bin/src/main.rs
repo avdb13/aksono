@@ -1,7 +1,6 @@
 use std::{path::Path, process::ExitCode};
 
-use aksono_common::{app, config, error};
-use axum::Router;
+use aksono_common::{app, config, error, router::Router};
 use tokio::net::TcpListener;
 
 use tracing::info;
@@ -47,7 +46,7 @@ async fn try_main() -> Result<(), error::Startup> {
     );
 
     match TcpListener::bind(&*app.config.listener).await {
-        Ok(listener) => match axum::serve(listener, Router::new()).await {
+        Ok(listener) => match axum::serve(listener, Router::new().into_inner()).await {
             Ok(_) => Ok(()),
             Err(error) => {
                 let listener = app.config.listener.clone();

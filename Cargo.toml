@@ -31,6 +31,24 @@ thiserror = { version = "2.0.9" }
 # Argument parsing
 argh = "0.1.13"
 
+# Matrix types and traits
+ruma = { git = "https://github.com/ruma/ruma", features = [
+  "client-api",
+  "rand",
+] }
+
+# Middleware utilities
+tower = { version = "0.5.2", features = ["util"] }
+
+# Async abstractions
+futures = { version = "0.3.31" }
+
+# HTTP body utilities
+http-body-util = { version = "0.1.2" }
+
+# Byte abstractions
+bytes = { version = "1.9.0" }
+
 [workspace.lints.rust]
 
 [workspace.lints.clippy]
