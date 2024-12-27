@@ -25,6 +25,9 @@ axum = { version = "0.7.9", features = ["tokio", "json", "http2"] }
 # Error deriving
 thiserror = { version = "2.0.9" }
 
+# Argument parsing
+argh = "0.1.13"
+
 [profile.dev]
 incremental = true
 opt-level = 1

@@ -1,10 +1,11 @@
-use std::{convert::Infallible, path::Path, process::ExitCode};
+use std::{path::Path, process::ExitCode};
 
 use axum::Router;
 use tokio::net::TcpListener;
 
 use tracing::info;
 
+mod args;
 mod config;
 mod error;
 
@@ -25,13 +26,17 @@ async fn try_main() -> Result<(), error::Startup> {
         .event_format(tracing_subscriber::fmt::format().compact())
         .init();
 
+    let args: args::Args = argh::from_env();
+
     let config: config::Config = {
-        let path = Path::new("./aksono.toml");
+        let path = args
+            .config
+            .unwrap_or_else(|| Path::new("./aksono.toml").to_owned());
 
-        let file = std::fs::read_to_string(path)
-            .map_err(|error| error::Config::Read(error, path.into()))?;
+        let file = std::fs::read_to_string(&path)
+            .map_err(|error| error::Config::Read(error, path.clone()))?;
 
-        toml::from_str(&file).map_err(|error| error::Config::Parse(error, path.into()))?
+        toml::from_str(&file).map_err(|error| error::Config::Parse(error, path.clone()))?
     };
 
     info!(
