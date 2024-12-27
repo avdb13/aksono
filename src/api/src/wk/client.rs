@@ -13,7 +13,7 @@ pub async fn get_discovery_information(
     State(app): State<Arc<App>>,
     _: Request,
 ) -> Result<Response> {
-    let base_url = match &app.config.base_url {
+    let base_url = match &app.config.discovery.base_url {
         Some(base_url) => base_url.to_string(),
         None => format!("https://{}", &app.config.server_name),
     };
