@@ -1,10 +1,11 @@
 use std::{fmt::Display, net::SocketAddr, ops::Deref};
 
+use ruma::OwnedServerName;
 use serde::{de::Error, Deserialize, Deserializer};
 
 #[derive(Debug, Clone, Deserialize)]
 pub struct Config {
-    pub server_name: String,
+    pub server_name: OwnedServerName,
     pub listener: Listener,
 }
 

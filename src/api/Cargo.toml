@@ -1,5 +1,5 @@
 [package]
-name = "aksono-bin"
+name = "aksono-api"
 version = "0.1.0"
 edition.workspace = true
 rust-version.workspace = true
@@ -7,7 +7,6 @@ license.workspace = true
 keywords.workspace = true
 
 [dependencies]
-aksono-api = { path = "../api" }
 aksono-common = { path = "../common" }
 
 # Tracing
@@ -29,8 +28,20 @@ axum = { workspace = true }
 # Error deriving
 thiserror = { workspace = true }
 
-# Argument parsing
-argh = { workspace = true }
+# Matrix types and traits
+ruma = { workspace = true }
+
+# Middleware utilities
+tower = { workspace = true }
+
+# Async abstractions
+futures = { workspace = true }
+
+# HTTP body utilities
+http-body-util = { workspace = true }
+
+# Byte abstractions
+bytes = { workspace = true }
 
 [lints]
 workspace = true

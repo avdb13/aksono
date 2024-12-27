@@ -1,6 +1,6 @@
 use std::{fmt::Debug, future::Future};
 
-use super::{Incoming, Outgoing};
+use super::{incoming::Incoming, outgoing::Outgoing};
 use axum::{
     async_trait,
     extract::FromRequestParts,

@@ -1,6 +1,6 @@
 use crate::config;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct App {
     pub config: config::Config,
 }
