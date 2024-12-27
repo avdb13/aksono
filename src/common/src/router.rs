@@ -120,33 +120,16 @@ impl IntoResponse for error::api::Error {
     fn into_response(self) -> axum::response::Response {
         use ruma::api::client::error::ErrorKind::*;
 
-        let message = format!("{self}");
-
         let (kind, status_code) = match self {
-            Self::BadRequest(kind, _) => (
-                kind.clone(),
-                match kind {
-                    WrongRoomKeysVersion { .. }
-                    | Forbidden { .. }
-                    | GuestAccessForbidden
-                    | ThreepidAuthFailed
-                    | UserDeactivated
-                    | ThreepidDenied => StatusCode::FORBIDDEN,
-                    Unauthorized | UnknownToken { .. } | MissingToken => StatusCode::UNAUTHORIZED,
-                    NotFound | Unrecognized => StatusCode::NOT_FOUND,
-                    LimitExceeded { .. } => StatusCode::TOO_MANY_REQUESTS,
-                    TooLarge => StatusCode::PAYLOAD_TOO_LARGE,
-                    NotYetUploaded => StatusCode::GATEWAY_TIMEOUT,
-                    _ => StatusCode::BAD_REQUEST,
-                },
-            ),
-            #[allow(unreachable_patterns)]
             _ => (Unknown, StatusCode::INTERNAL_SERVER_ERROR),
         };
 
         Outgoing(client::uiaa::UiaaResponse::MatrixError(client::Error::new(
             status_code,
-            client::error::ErrorBody::Standard { kind, message },
+            client::error::ErrorBody::Standard {
+                kind,
+                message: format!("{self}"),
+            },
         )))
         .into_response()
     }
