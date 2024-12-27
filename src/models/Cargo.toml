@@ -1,0 +1,16 @@
+[package]
+name = "aksono-models"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+keywords.workspace = true
+
+[dependencies]
+aksono-common = { path = "../common" }
+
+diesel = { workspace = true }
+diesel-async = { workspace = true }
+
+[lints]
+workspace = true
