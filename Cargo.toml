@@ -1,0 +1,30 @@
+[package]
+name = "aksono"
+edition = "2021"
+rust-version = "1.82.0"
+license = "Apache-2.0"
+keywords = ["matrix", "chat", "messaging", "federation", "social", "community"]
+
+[dependencies]
+
+[profile.dev]
+incremental = true
+opt-level = 1
+lto = 'off'
+
+# NOTE: you might have to adjust the value for opt-level, as it
+# comes with the drawback of less useful error messages for dependencies.
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.release]
+incremental = true
+opt-level = 3
+lto = 'thin'
+
+[profile.release.package."*"]
+opt-level = 3
+
+[lints.rust]
+
+[lints.clippy]
