@@ -6,6 +6,7 @@ use serde::{de::Error, Deserialize, Deserializer};
 #[derive(Debug, Clone, Deserialize)]
 pub struct Config {
     pub server_name: OwnedServerName,
+    pub base_url: Option<url::Url>,
     pub listener: Listener,
 }
 

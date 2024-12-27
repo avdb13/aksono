@@ -49,6 +49,9 @@ http-body-util = { version = "0.1.2" }
 # Byte abstractions
 bytes = { version = "1.9.0" }
 
+# URL
+url = { version = "2.5.4" }
+
 [workspace.lints.rust]
 
 [workspace.lints.clippy]
