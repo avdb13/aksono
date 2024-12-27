@@ -1,14 +1,12 @@
 use std::{path::Path, process::ExitCode};
 
+use aksono_common::{app, config, error};
 use axum::Router;
 use tokio::net::TcpListener;
 
 use tracing::info;
 
-mod app;
 mod args;
-mod config;
-mod error;
 
 #[tokio::main]
 async fn main() -> ExitCode {

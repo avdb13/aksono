@@ -1,0 +1,33 @@
+[package]
+name = "aksono-common"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+keywords.workspace = true
+
+[dependencies]
+# Tracing
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+# (De)serialization
+serde = { workspace = true }
+
+# Configuration parsing
+toml = { workspace = true }
+
+# Async runtime
+tokio = { workspace = true }
+
+# Router
+axum = { workspace = true }
+
+# Error deriving
+thiserror = { workspace = true }
+
+# Argument parsing
+argh = { workspace = true }
+
+[lints]
+workspace = true
