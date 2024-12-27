@@ -16,6 +16,12 @@ serde = { version = "1.0.216", features = ["derive"] }
 # Configuration parsing
 toml = "0.8.19"
 
+# Async runtime
+tokio = { version = "1.42.0", features = ["full"] }
+
+# Router
+axum = { version = "0.7.9", features = ["tokio", "json", "http2"] }
+
 [profile.dev]
 incremental = true
 opt-level = 1
