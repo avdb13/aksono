@@ -1,5 +1,5 @@
 [workspace]
-members = ["src/bin", "src/common"]
+members = [ "src/api","src/bin", "src/common"]
 resolver = "2"
 
 [workspace.package]
