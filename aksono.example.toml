@@ -1,0 +1,24 @@
+[server]
+# The domain that will appear at the end of usernames and room addresses
+server_name = "example.com"
+# The base URL that clients use to access this server
+public_url = "https://matrix.example.com"
+
+# TODO
+[well-known]
+
+[registration]
+users = true
+guests = false
+
+[listener]
+addr = "0.0.0.0"
+port = 7173
+
+[signing-keys]
+path = "./signing-key"
+
+# [[signing-keys.old]]
+# signature = "ed25519:id"
+# key = "base64string"
+# expired_ts = 123456789123

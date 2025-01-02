@@ -1,4 +1,4 @@
-use std::{path::Path, process::ExitCode};
+use std::{path::Path, process::ExitCode, sync::Arc};
 
 use aksono_api::build_routes;
 use aksono_common::{app, config, error};
@@ -38,7 +38,7 @@ async fn try_main() -> Result<(), error::startup::Error> {
         toml::from_str(&file).map_err(|error| error::startup::Config::Parse(error, path.clone()))?
     };
 
-    let app = app::App::new(config);
+    let app = Arc::new(app::App::new(config).await);
 
     info!(
         address = %app.config.listener.ip(),

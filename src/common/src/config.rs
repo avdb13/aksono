@@ -1,19 +1,41 @@
-use std::{fmt::Display, net::SocketAddr, ops::Deref};
+use std::{fmt::Display, net::SocketAddr, ops::Deref, path::PathBuf};
 
-use ruma::OwnedServerName;
+use ruma::{api::federation::discovery::OldVerifyKey, OwnedServerName, OwnedServerSigningKeyId};
 use serde::{de::Error, Deserialize, Deserializer};
 
 #[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "kebab-case")]
 pub struct Config {
-    pub server_name: OwnedServerName,
+    pub server: Server,
     pub listener: Listener,
+    pub signing_keys: SigningKeys,
     pub discovery: Discovery,
+    pub registration: Registration,
 }
 
 #[derive(Debug, Clone, Deserialize)]
+pub struct Server {
+    pub name: OwnedServerName,
+    pub public_url: url::Url,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct SigningKeys {
+    pub path: PathBuf,
+    pub old: Vec<(OwnedServerSigningKeyId, OldVerifyKey)>,
+}
+
+#[derive(Default, Debug, Clone, Deserialize)]
 pub struct Discovery {
     pub base_url: Option<url::Url>,
     pub support_page: Option<url::Url>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct Registration {
+    pub users: bool,
+    #[serde(default)]
+    pub guests: bool,
 }
 
 #[derive(Debug, Clone)]

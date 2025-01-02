@@ -9,8 +9,14 @@ keywords.workspace = true
 [dependencies]
 aksono-common = { path = "../common" }
 
+# DB ORM
 diesel = { workspace = true }
 diesel-async = { workspace = true }
+
+# Matrix types and traits
+ruma = { workspace = true }
+
+serde_json = { workspace = true }
 
 [lints]
 workspace = true

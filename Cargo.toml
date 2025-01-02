@@ -1,5 +1,5 @@
 [workspace]
-members = [ "src/api","src/bin", "src/common"]
+members = ["src/api", "src/bin", "src/common", "src/models"]
 resolver = "2"
 
 [workspace.package]
@@ -8,6 +8,9 @@ rust-version = "1.82.0"
 license = "Apache-2.0"
 keywords = ["matrix", "chat", "messaging", "federation", "social", "community"]
 
+[workspace.features]
+default = []
+
 [workspace.dependencies]
 # Tracing
 tracing = "0.1.41"
@@ -15,6 +18,7 @@ tracing-subscriber = "0.3.19"
 
 # (De)serialization
 serde = { version = "1.0.216", features = ["derive"] }
+serde_json = { version = "1.0.133", features = ["raw_value"] }
 
 # Configuration parsing
 toml = "0.8.19"
@@ -24,6 +28,7 @@ tokio = { version = "1.42.0", features = ["full"] }
 
 # Router
 axum = { version = "0.7.9", features = ["tokio", "json", "http2"] }
+axum-extra = { version = "0.9.6", features = ["typed-header"] }
 
 # Error deriving
 thiserror = { version = "2.0.9" }
@@ -32,9 +37,19 @@ thiserror = { version = "2.0.9" }
 argh = "0.1.13"
 
 # Matrix types and traits
-ruma = { git = "https://github.com/ruma/ruma", features = [
-  "client-api",
+ruma = { git = "https://github.com/ruma/ruma", branch = "main", features = [
+  "compat",
   "rand",
+  "appservice-api-c",
+  "client-api",
+  "federation-api",
+  "push-gateway-api-c",
+  "server-util",
+  "state-res",
+  "unstable-msc2448",
+  "unstable-msc3575",
+  "ring-compat",
+  "unstable-unspecified",
 ] }
 
 # Middleware utilities
@@ -51,6 +66,22 @@ bytes = { version = "1.9.0" }
 
 # URL
 url = { version = "2.5.4" }
+
+# DB ORM
+diesel = { version = "2.2.6", features = ["postgres"] }
+diesel-async = { version = "0.5.2", features = ["bb8", "postgres"] }
+
+# CSPRNG
+rand = "0.8.5"
+
+# Password hashing
+argon2 = { version = "0.5.3" }
+
+# Time
+chrono = { version = "0.4.39" }
+
+# Query parsing
+serde_html_form = { version = "0.2.7" }
 
 [workspace.lints.rust]
 

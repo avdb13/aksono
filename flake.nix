@@ -40,6 +40,8 @@
         default = self.callPackage ./nix/default.nix {};
 
         shell = self.callPackage ./nix/shell.nix {};
+
+        checks = {};
       });
   in
     inputs.flake-parts.lib.mkFlake {
@@ -69,8 +71,6 @@
 
         devShells.default =
           (makeScope pkgs).shell;
-        
-        checks.default = {};
       };
     };
 }

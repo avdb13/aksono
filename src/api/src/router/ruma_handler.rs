@@ -1,4 +1,5 @@
-use std::{fmt::Debug, future::Future};
+use aksono_common::app::App;
+use std::{future::Future, sync::Arc};
 
 use super::{incoming::Incoming, outgoing::Outgoing};
 use axum::{
@@ -18,18 +19,17 @@ macro_rules! impl_ruma_handler {
     ( $($ty:ident),* $(,)? ) => {
         #[async_trait]
         #[allow(non_snake_case)]
-        impl<Q, $($ty,)* P, E, F, H, S>
-            RumaHandler<($($ty,)* Incoming<Q>,), S> for H
+        impl<Q, $($ty,)* P, E, F, H>
+            RumaHandler<($($ty,)* Incoming<Q>,), Arc<App>> for H
         where
             Q: IncomingRequest + Send + 'static,
-            $( $ty: FromRequestParts<S> + Send + 'static, )*
+            $( $ty: FromRequestParts<Arc<App>> + Send + 'static, )*
             P: OutgoingResponse,
             E: IntoResponse,
             F: Future<Output = Result<P, E>> + Send,
             H: FnOnce($($ty,)* Q) -> F + Clone + Send + 'static,
-            S: Debug + Clone + Send + Sync + 'static,
         {
-            fn add_to_router(self, router: axum::Router<S>) -> axum::Router<S>
+            fn add_to_router(self, router: axum::Router<Arc<App>>) -> axum::Router<Arc<App>>
             {
                 let meta = Q::METADATA;
 

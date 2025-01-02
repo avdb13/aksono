@@ -1,0 +1,22 @@
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - develop
+
+name: CI
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Nix
+    - uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: |
+            allow-import-from-derivation = false
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - run: nix build
+    - run: nix flake check

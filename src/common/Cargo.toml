@@ -7,9 +7,6 @@ license.workspace = true
 keywords.workspace = true
 
 [dependencies]
-# Tracing
-tracing = { workspace = true }
-tracing-subscriber = { workspace = true }
 
 # (De)serialization
 serde = { workspace = true }
@@ -20,29 +17,26 @@ toml = { workspace = true }
 # Async runtime
 tokio = { workspace = true }
 
-# Router
-axum = { workspace = true }
-
 # Error deriving
 thiserror = { workspace = true }
 
 # Matrix types and traits
 ruma = { workspace = true }
 
-# Middleware utilities
-tower = { workspace = true }
-
-# Async abstractions
-futures = { workspace = true }
-
-# HTTP body utilities
-http-body-util = { workspace = true }
-
-# Byte abstractions
-bytes = { workspace = true }
-
 # URL
 url = { workspace = true }
+
+# CSPRNG
+rand = { workspace = true }
+
+# Password hashing
+argon2 = { workspace = true }
+
+diesel = { workspace = true }
+diesel-async = { workspace = true }
+
+# Time
+chrono = { workspace = true }
 
 [lints]
 workspace = true

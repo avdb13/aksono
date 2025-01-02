@@ -14,9 +14,6 @@ aksono-common = { path = "../common" }
 tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
 
-# (De)serialization
-serde = { workspace = true }
-
 # Configuration parsing
 toml = { workspace = true }
 
@@ -26,11 +23,18 @@ tokio = { workspace = true }
 # Router
 axum = { workspace = true }
 
-# Error deriving
-thiserror = { workspace = true }
-
 # Argument parsing
 argh = { workspace = true }
+
+[dev-dependencies]
+ruma = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+fake = { version = "3.0.1", features = ["derive"] }
+assert_matches2 = "0.1.2"
+assign = "1.1.1"
+reqwest = { version = "0.12.12", features = ["json"] }
 
 [lints]
 workspace = true

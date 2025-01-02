@@ -8,22 +8,18 @@ keywords.workspace = true
 
 [dependencies]
 aksono-common = { path = "../common" }
+aksono-models = { path = "../models" }
 
 # Tracing
 tracing = { workspace = true }
-tracing-subscriber = { workspace = true }
 
 # (De)serialization
 serde = { workspace = true }
-
-# Configuration parsing
-toml = { workspace = true }
-
-# Async runtime
-tokio = { workspace = true }
+serde_json = { workspace = true }
 
 # Router
 axum = { workspace = true }
+axum-extra = { workspace = true }
 
 # Error deriving
 thiserror = { workspace = true }
@@ -31,17 +27,18 @@ thiserror = { workspace = true }
 # Matrix types and traits
 ruma = { workspace = true }
 
-# Middleware utilities
-tower = { workspace = true }
-
-# Async abstractions
-futures = { workspace = true }
-
 # HTTP body utilities
 http-body-util = { workspace = true }
 
 # Byte abstractions
 bytes = { workspace = true }
+
+# DB ORM
+diesel = { workspace = true }
+diesel-async = { workspace = true }
+
+# Query parsing
+serde_html_form = { version = "0.2.7" }
 
 [lints]
 workspace = true

@@ -4,6 +4,9 @@ mod error;
 mod incoming;
 mod outgoing;
 mod ruma_handler;
+mod sender;
+
+pub use sender::Sender;
 
 pub(crate) struct Router<S = ()>(axum::Router<S>);
 
